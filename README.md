@@ -1,2 +1,2 @@
-// All the programming code that I have created uses the C programming language.
+Every piece of the code above that I've created is written in the C language.
 ~~FD
