@@ -1,1 +1,87 @@
+#include <stdio.h>
+#include <string.h>
 
+#define MAX_CARS 5
+#define MEMBER_PRICE 50000
+#define NON_MEMBER_PRICE 80000
+
+struct Car {
+    char licenseNumber[20];
+    int isMember;
+    int isBeingWashed;
+};
+
+struct Car cars[MAX_CARS];
+int carsCount = 0;
+
+void addCarToWash(char *licenseNumber, int isMember) {
+    if (carsCount < MAX_CARS) {
+        strcpy(cars[carsCount].licenseNumber, licenseNumber);
+        cars[carsCount].isMember = isMember;
+        cars[carsCount].isBeingWashed = 1;
+        carsCount++;
+        printf("Car added to wash!\n");
+    } else {
+        printf("Car wash is full. Please wait.\n");
+    }
+}
+
+void displayCarsBeingWashed() {
+    printf("Cars currently being washed:\n");
+    for (int i = 0; i < carsCount; i++) {
+        if (cars[i].isBeingWashed) {
+            printf("License Number: %s, Member: %s\n", cars[i].licenseNumber, cars[i].isMember ? "Yes" : "No");
+        }
+    }
+}
+
+void checkoutCar(char *licenseNumber) {
+    for (int i = 0; i < carsCount; i++) {
+        if (strcmp(cars[i].licenseNumber, licenseNumber) == 0) {
+            cars[i].isBeingWashed = 0;
+            printf("Car with license number %s has been checked out.\n", licenseNumber);
+            return;
+        }
+    }
+    printf("Car with license number %s not found.\n", licenseNumber);
+}
+
+int main() {
+    int choice, isMember;
+    char licenseNumber[20];
+
+    do {
+        printf("\nCar Wash Menu\n");
+        printf("1. Add new car\n");
+        printf("2. Display cars being washed\n");
+        printf("3. Checkout car\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter license number: ");
+                scanf("%s", licenseNumber);
+                printf("Is member? (1 for yes, 0 for no): ");
+                scanf("%d", &isMember);
+                addCarToWash(licenseNumber, isMember);
+                break;
+            case 2:
+                displayCarsBeingWashed();
+                break;
+            case 3:
+                printf("Enter license number to checkout: ");
+                scanf("%s", licenseNumber);
+                checkoutCar(licenseNumber);
+                break;
+            case 4:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 4);
+
+    return 0;
+}
