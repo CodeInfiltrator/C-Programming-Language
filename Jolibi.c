@@ -1,4 +1,4 @@
-//Problem Jolibi socs1
+//jolibi socs1 problem
 #include <stdio.h>
 
 int main() {
