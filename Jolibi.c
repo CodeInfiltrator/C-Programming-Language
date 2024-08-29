@@ -1,4 +1,3 @@
-//Problem Jolibi socs1
 #include <stdio.h>
 
 int main() {
